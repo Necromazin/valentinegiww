@@ -80,8 +80,8 @@ button {
 
 <body>
 
-<h1>Will you be my Valentine Giww?</h1>
-<p>me make this since i couldnt do the sign thing</p>
+<h1>Will you be my Valentine Giww? </h1>
+<p>me make this since i couldnt do the sign thing 💔</p>
 
 <img src="us.jpg" alt="Our photo">
 
@@ -92,19 +92,22 @@ button {
 
 <div id="messageBox"></div>
 
+<!-- AUDIO FILES -->
+<audio id="bgMusic" src="intro.mp3" loop autoplay></audio>
 <audio id="music" src="bestpart.mp3" loop></audio>
 
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
+const bgMusic = document.getElementById("bgMusic");
 const music = document.getElementById("music");
 const messageBox = document.getElementById("messageBox");
 
 // Progressive NO button texts
 const noTexts = [
   "No, pls say yes 😢",
-  "No, sige na oyy ",
-  "No, say yes na oy pls Giww "
+  "No, sige na oyy",
+  "No, say yes na oy pls Giww"
 ];
 let noCount = 0;
 
@@ -114,7 +117,6 @@ function moveNoButton() {
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 
-  // change text progressively
   if(noCount < noTexts.length){
     noBtn.innerText = noTexts[noCount];
     noCount++;
@@ -126,7 +128,8 @@ noBtn.addEventListener("click", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton);
 
 yesBtn.addEventListener("click", () => {
-  music.play();
+  bgMusic.pause(); // stop the background music
+  music.play(); // play Best Part
   yesBtn.style.transform = "scale(1.2)";
   messageBox.style.display = "block";
   messageBox.innerText = `HAII BABYY, thank you for saying yes HAHAHAHHAHA 
@@ -141,7 +144,7 @@ AND I APPRECIATE YOU SOO SOO MUCHH.
 
 SEE YOU THIS VALENTINESSS MWAHMWAHH 
 
-i hope you said yes HAAHAHAHA `;
+i hope you said yes HAAHAHAHA`;
 });
 
 /* FLOATING HEARTS */
