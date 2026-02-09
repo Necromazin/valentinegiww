@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine?</title>
+<style>
+body {
+  background: pink;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  overflow: hidden;
+}
+
+h1 {
+  color: darkred;
+  margin-top: 40px;
+}
+
+p {
+  font-size: 20px;
+  color: maroon;
+}
+
+img {
+  width: 200px;
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px red;
+}
+
+button {
+  font-size: 20px;
+  padding: 10px 25px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background-color: red;
+  color: white;
+}
+
+#noBtn {
+  background-color: gray;
+  color: white;
+  position: relative;
+}
+
+/* HEARTS */
+.heart {
+  position: fixed;
+  color: red;
+  font-size: 20px;
+  animation: float 4s linear forwards;
+}
+
+@keyframes float {
+  0% {transform: translateY(0); opacity: 1;}
+  100% {transform: translateY(-300px); opacity: 0;}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Will you be my Valentine, Giww? 💖</h1>
+<p>I made something special for you 🥺💞</p>
+
+<img src="us.jpg" alt="Our photo">
+
+<br><br>
+
+<button id="yesBtn">YES 💘</button>
+<button id="noBtn">NO 😢</button>
+
+<audio id="music" src="https://www.fesliyanstudios.com/play-mp3/387" loop></audio>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const music = document.getElementById("music");
+
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
+  noBtn.style.position = "absolute";
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+yesBtn.addEventListener("click", () => {
+  music.play();
+  alert(`HAII BABYY, thank you for saying yes HAHAHAHHAHA 😭❤️
+
+i made this website nalang cus i couldn't do the sign thing to you in personn 😞💔  
+i just wanted say na thank youu soo much babyy for being with me and staying with me through the ups and downss.
+
+i am soooo lucky having you as my partner and i am so thankful for you coming into my life and just making it the best it's ever been.
+
+you make me the happiest guy ever whenever i am with you and I LOVE YOUU SO SOOO MUCHH BABYY HAAHAHHAHAHA.  
+AND I APPRECIATE YOU SOO SOO MUCHH.
+
+SEE YOU THIS VALENTINESSS MWAHMWAHH 💋💕
+
+i hope you said yes HAAHAHAHA`);
+});
+
+/* FLOATING HEARTS */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.top = "100%";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 4000);
+}, 300);
+</script>
+
+</body>
+</html>
