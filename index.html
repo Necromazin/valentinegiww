@@ -80,8 +80,8 @@ button {
 
 <body>
 
-<h1>Will you be my Valentine Giww? </h1>
-<p>me make this since i couldnt do the sign thing 💔</p>
+<h1>Will you be my Valentine Giww?</h1>
+<p>uhh me make this since i couldnt do the sign thingg 💔</p>
 
 <img src="us.jpg" alt="Our photo">
 
@@ -93,7 +93,7 @@ button {
 <div id="messageBox"></div>
 
 <!-- AUDIO FILES -->
-<audio id="bgMusic" src="intro.mp3" loop autoplay></audio>
+<audio id="bgMusic" src="intro.mp3" loop></audio>
 <audio id="music" src="bestpart.mp3" loop></audio>
 
 <script>
@@ -102,6 +102,12 @@ const yesBtn = document.getElementById("yesBtn");
 const bgMusic = document.getElementById("bgMusic");
 const music = document.getElementById("music");
 const messageBox = document.getElementById("messageBox");
+
+// Start background music on first click anywhere
+document.body.addEventListener('click', function startMusic() {
+    bgMusic.play();
+    document.body.removeEventListener('click', startMusic); // only once
+});
 
 // Progressive NO button texts
 const noTexts = [
@@ -128,7 +134,7 @@ noBtn.addEventListener("click", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton);
 
 yesBtn.addEventListener("click", () => {
-  bgMusic.pause(); // stop the background music
+  bgMusic.pause(); // stop background music
   music.play(); // play Best Part
   yesBtn.style.transform = "scale(1.2)";
   messageBox.style.display = "block";
