@@ -11,7 +11,7 @@ body {
   font-family: 'Arial', sans-serif;
   overflow: hidden;
   text-align: center;
-  background: linear-gradient(135deg, #ffe0f0, #ffb6c1, #ff69b4);
+  background: linear-gradient(135deg, #a0c4ff, #69b3f0, #1e90ff);
   background-size: 400% 400%;
   animation: gradientMove 15s ease infinite;
   cursor: default;
@@ -25,28 +25,29 @@ body {
 
 /* ===== TEXT & IMAGE ===== */
 h1 {
-  color: #900028;
+  color: #002b5c;
   margin-top: 30px;
-  text-shadow: 1px 1px 2px #fff;
+  text-shadow: 1px 1px 2px #cce7ff;
 }
 
 p {
   font-size: 20px;
-  color: #800000;
-  text-shadow: 1px 1px 1px #fff;
+  color: #001f3f;
+  text-shadow: 1px 1px 1px #cce7ff;
 }
 
 img {
   width: 200px;
   border-radius: 20px;
   margin-top: 20px;
-  box-shadow: 0 0 15px #ff1493;
+  box-shadow: 0 0 15px #00bfff;
   transform: rotate(-2deg);
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
 img:hover {
   transform: rotate(2deg) scale(1.05);
+  box-shadow: 0 0 25px #00ffff;
 }
 
 /* ===== BUTTONS ===== */
@@ -61,12 +62,12 @@ button {
 }
 
 #yesBtn {
-  background-color: #ff0033;
+  background-color: #00bfff;
   color: white;
   font-size: 35px;
   padding: 20px 50px;
+  box-shadow: 0 0 15px #00ffff;
   animation: pulse 1.5s infinite;
-  cursor: url('https://i.postimg.cc/D0vN7r41/heart-cursor.png'), auto;
 }
 
 #yesBtn:hover {
@@ -74,16 +75,18 @@ button {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% { transform: scale(1); box-shadow: 0 0 15px #00ffff; }
+  50% { transform: scale(1.1); box-shadow: 0 0 25px #00ffff; }
+  100% { transform: scale(1); box-shadow: 0 0 15px #00ffff; }
 }
 
 #noBtn {
-  background-color: gray;
+  background-color: #004080;
   color: white;
   position: absolute;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  border: 2px solid #00bfff;
+  border-radius: 12px;
 }
 
 /* ===== MESSAGE BOX ===== */
@@ -94,37 +97,51 @@ button {
   padding: 20px;
   width: 80%;
   border-radius: 15px;
-  box-shadow: 0 0 15px #ff1493;
-  color: #800000;
+  box-shadow: 0 0 15px #00bfff;
+  color: #001f3f;
   white-space: pre-line;
   font-size: 18px;
   transform: translateY(-100%);
   transition: transform 0.8s ease;
 }
 
-/* ===== FLOATING HEARTS & EMOJIS ===== */
-.emoji {
+/* ===== FLOATING HEARTS, EMOJIS & PHOTOS ===== */
+.emoji, .floatPhoto, .confetti {
   position: fixed;
   font-size: 24px;
-  animation: floatUp 4s linear forwards;
+  animation: floatUp 6s linear forwards;
+}
+
+.floatPhoto {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.confetti {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1;}
-  100% { transform: translateY(-350px) rotate(360deg); opacity: 0;}
+  0% { transform: translateY(0) rotate(0deg); opacity: 1;}
+  100% { transform: translateY(-400px) rotate(360deg); opacity: 0;}
 }
 </style>
 </head>
 <body>
 
-<h1>Will you be my Valentine Giww?</h1>
-<p>uhh me make this since i couldnt make this since i couldnt do the sign thing 💔</p>
+<h1>Will you be my Valentine, Giww?</h1>
+<p>uhh me make this since i could do the sign thing 💔💔 v2</p>
 
-<img src="us.jpg" alt="Our photo">
+<img src="us1.jpg" alt="Our photo">
 
 <br><br>
 
-<button id="yesBtn">YES,please say yes</button>
+<button id="yesBtn">YES, please say yes</button>
 <button id="noBtn">NO</button>
 
 <div id="messageBox"></div>
@@ -148,9 +165,9 @@ document.body.addEventListener('click', function startMusic() {
 
 // ===== PROGRESSIVE NO BUTTON =====
 const noTexts = [
-  "No, pls say yes 😢",
-  "No, sige na oyy",
-  "No, say yes na oy pls Giww "
+  "No, pls say yes 🥲",
+  "No, sige na oyy ",
+  "No, say yes na oy pls giww press yes"
 ];
 let noCount = 0;
 
@@ -162,7 +179,7 @@ function moveNoButton() {
 
   // wiggle effect
   noBtn.style.transform = "rotate(" + (Math.random()*30-15) + "deg)";
-  
+
   // progressive text
   if(noCount < noTexts.length){
     noBtn.innerText = noTexts[noCount];
@@ -191,14 +208,30 @@ i am soooo lucky having you as my partner and i am so thankful for you coming in
 you make me the happiest guy ever whenever i am with you and I LOVE YOUU SO SOOO MUCHH BABYY HAAHAHHAHAHA.  
 AND I APPRECIATE YOU SOO SOO MUCHH.
 
-SEE YOU THIS VALENTINESSS MWAHMWAHH 
+SEE YOU THIS VALENTINESSS MWAHMWAHH
 
 i hope you said yes HAAHAHAHA`;
+
+  // ===== CONFETTI AFTER YES =====
+  for(let i=0; i<100; i++){
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.background = Math.random() > 0.5 ? "#00bfff" : "#c0c0c0"; // blue or silver
+    c.style.left = Math.random() * window.innerWidth + "px";
+    c.style.top = Math.random() * window.innerHeight + "px";
+    c.style.width = Math.random()*8+5+"px";
+    c.style.height = c.style.width;
+    document.body.appendChild(c);
+    setTimeout(() => { c.remove(); }, 4000);
+  }
 });
 
-// ===== FLOATING HEARTS & EMOJIS =====
-const emojis = ["❤️","😍","💖","🎉","🥰"];
+// ===== FLOATING BLUE HEARTS, EMOJIS & MULTIPLE PHOTOS =====
+const emojis = ["💙","❄️","💫","✨"];
+const photos = ["us1.jpg","us2.jpg","us3.jpg","us4.jpg","us5.jpg","us6.jpg","us7.jpg","us8.jpg"];
+
 setInterval(() => {
+  // Floating emoji
   const e = document.createElement("div");
   e.className = "emoji";
   e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
@@ -206,7 +239,16 @@ setInterval(() => {
   e.style.top = "100%";
   document.body.appendChild(e);
   setTimeout(() => { e.remove(); }, 4000);
-}, 300);
+
+  // Floating random photo
+  const p = document.createElement("img");
+  p.src = photos[Math.floor(Math.random() * photos.length)];
+  p.className = "floatPhoto";
+  p.style.left = Math.random() * window.innerWidth + "px";
+  p.style.top = "100%";
+  document.body.appendChild(p);
+  setTimeout(() => { p.remove(); }, 6000);
+}, 600);
 </script>
 </body>
 </html>
