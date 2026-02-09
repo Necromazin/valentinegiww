@@ -4,30 +4,52 @@
 <meta charset="UTF-8">
 <title>Valentine?</title>
 <style>
+/* ===== BODY & BACKGROUND ===== */
 body {
-  background: pink;
-  font-family: Arial, sans-serif;
-  text-align: center;
+  margin: 0;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
   overflow: hidden;
+  text-align: center;
+  background: linear-gradient(135deg, #ffe0f0, #ffb6c1, #ff69b4);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  cursor: default;
 }
 
+@keyframes gradientMove {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+/* ===== TEXT & IMAGE ===== */
 h1 {
-  color: darkred;
-  margin-top: 40px;
+  color: #900028;
+  margin-top: 30px;
+  text-shadow: 1px 1px 2px #fff;
 }
 
 p {
   font-size: 20px;
-  color: maroon;
+  color: #800000;
+  text-shadow: 1px 1px 1px #fff;
 }
 
 img {
   width: 200px;
   border-radius: 20px;
   margin-top: 20px;
-  box-shadow: 0 0 10px red;
+  box-shadow: 0 0 15px #ff1493;
+  transform: rotate(-2deg);
+  transition: transform 0.5s ease;
 }
 
+img:hover {
+  transform: rotate(2deg) scale(1.05);
+}
+
+/* ===== BUTTONS ===== */
 button {
   font-size: 25px;
   padding: 15px 40px;
@@ -39,55 +61,70 @@ button {
 }
 
 #yesBtn {
-  background-color: red;
+  background-color: #ff0033;
   color: white;
   font-size: 35px;
   padding: 20px 50px;
+  animation: pulse 1.5s infinite;
+  cursor: url('https://i.postimg.cc/D0vN7r41/heart-cursor.png'), auto;
+}
+
+#yesBtn:hover {
+  transform: scale(1.2);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 #noBtn {
   background-color: gray;
   color: white;
   position: absolute;
+  transition: transform 0.2s ease;
 }
 
-/* HEARTS */
-.heart {
-  position: fixed;
-  color: red;
-  font-size: 20px;
-  animation: float 4s linear forwards;
-}
-
-@keyframes float {
-  0% {transform: translateY(0); opacity: 1;}
-  100% {transform: translateY(-300px); opacity: 0;}
-}
-
+/* ===== MESSAGE BOX ===== */
 #messageBox {
   display: none;
-  background: white;
+  background: rgba(255,255,255,0.95);
   margin: 20px auto;
   padding: 20px;
   width: 80%;
   border-radius: 15px;
-  box-shadow: 0 0 10px red;
+  box-shadow: 0 0 15px #ff1493;
   color: #800000;
   white-space: pre-line;
+  font-size: 18px;
+  transform: translateY(-100%);
+  transition: transform 0.8s ease;
+}
+
+/* ===== FLOATING HEARTS & EMOJIS ===== */
+.emoji {
+  position: fixed;
+  font-size: 24px;
+  animation: floatUp 4s linear forwards;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1;}
+  100% { transform: translateY(-350px) rotate(360deg); opacity: 0;}
 }
 </style>
 </head>
-
 <body>
 
 <h1>Will you be my Valentine Giww?</h1>
-<p>uhh me make this since i couldnt do the sign thingg 💔</p>
+<p>uhh me make this since i couldnt make this since i couldnt do the sign thing 💔</p>
 
 <img src="us.jpg" alt="Our photo">
 
 <br><br>
 
-<button id="yesBtn">YES, please say yes</button>
+<button id="yesBtn">YES,please say yes</button>
 <button id="noBtn">NO</button>
 
 <div id="messageBox"></div>
@@ -103,17 +140,17 @@ const bgMusic = document.getElementById("bgMusic");
 const music = document.getElementById("music");
 const messageBox = document.getElementById("messageBox");
 
-// Start background music on first click anywhere
+// ===== START BACKGROUND MUSIC AFTER FIRST CLICK =====
 document.body.addEventListener('click', function startMusic() {
     bgMusic.play();
-    document.body.removeEventListener('click', startMusic); // only once
+    document.body.removeEventListener('click', startMusic);
 });
 
-// Progressive NO button texts
+// ===== PROGRESSIVE NO BUTTON =====
 const noTexts = [
   "No, pls say yes 😢",
   "No, sige na oyy",
-  "No, say yes na oy pls Giww"
+  "No, say yes na oy pls Giww "
 ];
 let noCount = 0;
 
@@ -123,6 +160,10 @@ function moveNoButton() {
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 
+  // wiggle effect
+  noBtn.style.transform = "rotate(" + (Math.random()*30-15) + "deg)";
+  
+  // progressive text
   if(noCount < noTexts.length){
     noBtn.innerText = noTexts[noCount];
     noCount++;
@@ -133,12 +174,14 @@ noBtn.addEventListener("mouseover", moveNoButton);
 noBtn.addEventListener("click", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton);
 
+// ===== YES BUTTON =====
 yesBtn.addEventListener("click", () => {
-  bgMusic.pause(); // stop background music
-  music.play(); // play Best Part
+  bgMusic.pause();
+  music.play();
   yesBtn.style.transform = "scale(1.2)";
   messageBox.style.display = "block";
-  messageBox.innerText = `HAII BABYY, thank you for saying yes HAHAHAHHAHA 
+  setTimeout(() => { messageBox.style.transform = "translateY(0)"; }, 50);
+  messageBox.innerText = `HAII BABYY, thank you for saying yes HAHAHAHHAHA
 
 i made this website nalang cus i couldn't do the sign thing to you in personn 😞💔  
 i just wanted say na thank youu soo much babyy for being with me and staying with me through the ups and downss.
@@ -153,20 +196,17 @@ SEE YOU THIS VALENTINESSS MWAHMWAHH
 i hope you said yes HAAHAHAHA`;
 });
 
-/* FLOATING HEARTS */
+// ===== FLOATING HEARTS & EMOJIS =====
+const emojis = ["❤️","😍","💖","🎉","🥰"];
 setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * window.innerWidth + "px";
-  heart.style.top = "100%";
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 4000);
+  const e = document.createElement("div");
+  e.className = "emoji";
+  e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left = Math.random() * window.innerWidth + "px";
+  e.style.top = "100%";
+  document.body.appendChild(e);
+  setTimeout(() => { e.remove(); }, 4000);
 }, 300);
 </script>
-
 </body>
 </html>
