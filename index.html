@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Valentine?</title>
 <style>
-/* ===== BODY & BACKGROUND ===== */
 body {
   margin: 0;
   height: 100vh;
@@ -23,7 +22,6 @@ body {
   100% {background-position: 0% 50%;}
 }
 
-/* ===== TEXT & IMAGE ===== */
 h1 {
   color: #002b5c;
   margin-top: 30px;
@@ -50,7 +48,6 @@ img:hover {
   box-shadow: 0 0 25px #00ffff;
 }
 
-/* ===== BUTTONS ===== */
 button {
   font-size: 25px;
   padding: 15px 40px;
@@ -70,9 +67,7 @@ button {
   animation: pulse 1.5s infinite;
 }
 
-#yesBtn:hover {
-  transform: scale(1.2);
-}
+#yesBtn:hover { transform: scale(1.2); }
 
 @keyframes pulse {
   0% { transform: scale(1); box-shadow: 0 0 15px #00ffff; }
@@ -89,7 +84,6 @@ button {
   border-radius: 12px;
 }
 
-/* ===== MESSAGE BOX ===== */
 #messageBox {
   display: none;
   background: rgba(255,255,255,0.95);
@@ -105,48 +99,41 @@ button {
   transition: transform 0.8s ease;
 }
 
-/* ===== FLOATING HEARTS, EMOJIS & PHOTOS ===== */
 .emoji, .floatPhoto, .confetti {
   position: fixed;
-  font-size: 24px;
-  animation: floatUp 6s linear forwards;
+  animation: floatMove 6s linear forwards;
 }
 
 .floatPhoto {
-  width: 50px;
-  height: 50px;
   border-radius: 10px;
   object-fit: cover;
   box-shadow: 0 0 10px #00ffff;
 }
 
 .confetti {
-  width: 10px;
-  height: 10px;
   border-radius: 50%;
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1;}
-  100% { transform: translateY(-400px) rotate(360deg); opacity: 0;}
+@keyframes floatMove {
+  0% { transform: translate(0,0) rotate(0deg); opacity:1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity:0; }
 }
 </style>
 </head>
 <body>
 
 <h1>Will you be my Valentine, Giww?</h1>
-<p>uhh me make this since i could do the sign thing 💔💔 v2</p>
+<p>uhh i made this since i couldnt do the sign thingg 💔💔 v2</p>
 
 <img src="us1.jpg" alt="Our photo">
 
 <br><br>
 
-<button id="yesBtn">YES, please say yes</button>
-<button id="noBtn">NO</button>
+<button id="yesBtn">YES 💙</button>
+<button id="noBtn">NO ❄️</button>
 
 <div id="messageBox"></div>
 
-<!-- AUDIO FILES -->
 <audio id="bgMusic" src="intro.mp3" loop></audio>
 <audio id="music" src="bestpart.mp3" loop></audio>
 
@@ -167,7 +154,7 @@ document.body.addEventListener('click', function startMusic() {
 const noTexts = [
   "No, pls say yes 🥲",
   "No, sige na oyy ",
-  "No, say yes na oy pls giww press yes"
+  "No, say yes na oy pls Giww press yes"
 ];
 let noCount = 0;
 
@@ -176,15 +163,8 @@ function moveNoButton() {
   const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
-
-  // wiggle effect
   noBtn.style.transform = "rotate(" + (Math.random()*30-15) + "deg)";
-
-  // progressive text
-  if(noCount < noTexts.length){
-    noBtn.innerText = noTexts[noCount];
-    noCount++;
-  }
+  if(noCount < noTexts.length) { noBtn.innerText = noTexts[noCount]; noCount++; }
 }
 
 noBtn.addEventListener("mouseover", moveNoButton);
@@ -212,43 +192,68 @@ SEE YOU THIS VALENTINESSS MWAHMWAHH
 
 i hope you said yes HAAHAHAHA`;
 
-  // ===== CONFETTI AFTER YES =====
-  for(let i=0; i<100; i++){
+  // ===== CONFETTI =====
+  for(let i=0;i<100;i++){
     const c = document.createElement("div");
     c.className = "confetti";
-    c.style.background = Math.random() > 0.5 ? "#00bfff" : "#c0c0c0"; // blue or silver
-    c.style.left = Math.random() * window.innerWidth + "px";
-    c.style.top = Math.random() * window.innerHeight + "px";
-    c.style.width = Math.random()*8+5+"px";
-    c.style.height = c.style.width;
+    c.style.background = Math.random()>0.5?"#00bfff":"#c0c0c0";
+    c.style.left = Math.random()*window.innerWidth+"px";
+    c.style.top = Math.random()*window.innerHeight+"px";
+    const size = Math.random()*8+5;
+    c.style.width = size+"px";
+    c.style.height = size+"px";
     document.body.appendChild(c);
-    setTimeout(() => { c.remove(); }, 4000);
+    animateFloating(c, 0.5);
+    setTimeout(()=>{c.remove();},4000);
   }
 });
 
-// ===== FLOATING BLUE HEARTS, EMOJIS & MULTIPLE PHOTOS =====
+// ===== FLOATING PHOTOS & EMOJIS =====
 const emojis = ["💙","❄️","💫","✨"];
 const photos = ["us1.jpg","us2.jpg","us3.jpg","us4.jpg","us5.jpg","us6.jpg","us7.jpg","us8.jpg"];
 
 setInterval(() => {
-  // Floating emoji
+  // Emoji
   const e = document.createElement("div");
   e.className = "emoji";
   e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
-  e.style.left = Math.random() * window.innerWidth + "px";
-  e.style.top = "100%";
+  e.style.left = Math.random()*window.innerWidth+"px";
+  e.style.top = Math.random()*window.innerHeight+"px";
+  e.style.fontSize = (20+Math.random()*20)+"px";
   document.body.appendChild(e);
-  setTimeout(() => { e.remove(); }, 4000);
+  animateFloating(e);
 
-  // Floating random photo
+  // Photo
   const p = document.createElement("img");
-  p.src = photos[Math.floor(Math.random() * photos.length)];
+  p.src = photos[Math.floor(Math.random()*photos.length)];
   p.className = "floatPhoto";
-  p.style.left = Math.random() * window.innerWidth + "px";
-  p.style.top = "100%";
+  const size = 60 + Math.random()*40;
+  p.style.width = size+"px";
+  p.style.height = "auto";
+  p.style.left = Math.random()*window.innerWidth+"px";
+  p.style.top = Math.random()*window.innerHeight+"px";
   document.body.appendChild(p);
-  setTimeout(() => { p.remove(); }, 6000);
+  animateFloating(p);
+
 }, 600);
+
+// ===== FLOATING ANIMATION FUNCTION =====
+function animateFloating(el){
+  const dx = (Math.random()*2-1)*100; // move left/right
+  const dy = (Math.random()*2-1)*100; // move up/down
+  const rot = Math.random()*360+"deg";
+  el.style.setProperty('--dx', dx+'px');
+  el.style.setProperty('--dy', dy+'px');
+  el.style.setProperty('--rot', rot);
+  el.animate([
+    { transform: "translate(0,0) rotate(0deg)" },
+    { transform: `translate(${dx}px, ${dy}px) rotate(${rot})` }
+  ], {
+    duration: 6000,
+    easing: 'linear',
+    fill: 'forwards'
+  });
+}
 </script>
 </body>
 </html>
