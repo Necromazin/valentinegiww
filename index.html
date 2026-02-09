@@ -45,7 +45,7 @@ button {
 #noBtn {
   background-color: gray;
   color: white;
-  position: relative;
+  position: absolute;
 }
 
 /* HEARTS */
@@ -60,6 +60,18 @@ button {
   0% {transform: translateY(0); opacity: 1;}
   100% {transform: translateY(-300px); opacity: 0;}
 }
+
+#messageBox {
+  display: none;
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  width: 80%;
+  border-radius: 15px;
+  box-shadow: 0 0 10px red;
+  color: #800000;
+  white-space: pre-line;
+}
 </style>
 </head>
 
@@ -72,8 +84,10 @@ button {
 
 <br><br>
 
-<button id="yesBtn">YES 💘</button>
-<button id="noBtn">NO 😢</button>
+<button id="yesBtn">YES, please 🙏🙏</button>
+<button id="noBtn">NO</button>
+
+<div id="messageBox"></div>
 
 <audio id="music" src="https://www.fesliyanstudios.com/play-mp3/387" loop></audio>
 
@@ -81,18 +95,23 @@ button {
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const music = document.getElementById("music");
+const messageBox = document.getElementById("messageBox");
 
-noBtn.addEventListener("mouseover", () => {
+function moveNoButton() {
   const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
   const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
-  noBtn.style.position = "absolute";
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
-});
+}
+
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("click", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
 
 yesBtn.addEventListener("click", () => {
   music.play();
-  alert(`HAII BABYY, thank you for saying yes HAHAHAHHAHA 😭❤️
+  messageBox.style.display = "block";
+  messageBox.innerText = `HAII BABYY, thank you for saying yes HAHAHAHHAHA
 
 i made this website nalang cus i couldn't do the sign thing to you in personn 😞💔  
 i just wanted say na thank youu soo much babyy for being with me and staying with me through the ups and downss.
@@ -104,7 +123,7 @@ AND I APPRECIATE YOU SOO SOO MUCHH.
 
 SEE YOU THIS VALENTINESSS MWAHMWAHH 💋💕
 
-i hope you said yes HAAHAHAHA`);
+i hope you said yes HAAHAHAHA 💖`;
 });
 
 /* FLOATING HEARTS */
@@ -124,3 +143,5 @@ setInterval(() => {
 
 </body>
 </html>
+
+
